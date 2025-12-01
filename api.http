@@ -1,0 +1,286 @@
+# ========================================
+# Shinigami REST API - Complete Test Suite
+# ========================================
+#
+# 📝 HOW TO USE:
+# 1. Pastikan server sudah berjalan (npm run dev)
+# 2. Install "REST Client" extension di VS Code
+# 3. Klik "Send Request" di atas setiap ### untuk test
+# 4. Test secara berurutan dari atas ke bawah
+#
+# ⚠️ PENTING:
+# - Jalankan Popular/Search dulu untuk mendapatkan manga ID yang valid
+# - Copy ID dari response dan gunakan di request berikutnya
+# - Ganti {variabel} dengan nilai yang sebenarnya
+#
+# ========================================
+
+# ========================================
+# 1. HEALTH CHECK
+# ========================================
+# Cek apakah API server sedang berjalan
+
+### Health Check
+GET http://localhost:3000/api/health
+
+###
+
+# ========================================
+# 2. GET POPULAR MANGA
+# ========================================
+# Mendapatkan daftar manga populer
+# ✅ Gunakan ini untuk mendapatkan manga ID yang valid!
+
+### Popular Manga - Page 1
+GET http://localhost:3000/api/manga/popular?page=1
+
+###
+
+### Popular Manga - Page 2
+GET http://localhost:3000/api/manga/popular?page=2
+
+###
+
+# ========================================
+# 3. GET LATEST UPDATES
+# ========================================
+# Mendapatkan manga dengan update terbaru
+
+### Latest Updates - Page 1
+GET http://localhost:3000/api/manga/latest?page=1
+
+###
+
+### Latest Updates - Page 2
+GET http://localhost:3000/api/manga/latest?page=2
+
+###
+
+# ========================================
+# 4. SEARCH MANGA
+# ========================================
+# Mencari manga berdasarkan kata kunci
+
+### Search: One Piece
+GET http://localhost:3000/api/manga/search?q=one piece&page=1
+
+###
+
+### Search: Naruto
+GET http://localhost:3000/api/manga/search?q=naruto&page=1
+
+###
+
+### Search: Bleach
+GET http://localhost:3000/api/manga/search?q=bleach&page=1
+
+###
+
+### Search: Dragon Ball
+GET http://localhost:3000/api/manga/search?q=dragon ball&page=1
+
+###
+
+# ========================================
+# 5. GET MANGA DETAILS
+# ========================================
+# Mendapatkan detail lengkap dari sebuah manga
+#
+# 📝 NOTE: 
+# - Copy manga ID dari response Popular/Search (field "url")
+# - Ganti {mangaId} dengan ID yang valid
+# - Contoh ID yang biasa muncul di popular: c0f1d049-ff7f-474d-8c6a-3a55e4c44147
+
+### Manga Details - Example (Demonic Emperor)
+# Ganti dengan manga ID yang valid dari Popular/Search
+GET http://localhost:3000/api/manga/c0f1d049-ff7f-474d-8c6a-3a55e4c44147
+
+###
+
+### Manga Details - Template (Replace {mangaId})
+# GANTI {mangaId} dengan ID dari Popular/Search response
+# GET http://localhost:3000/api/manga/{mangaId}
+
+###
+
+# ========================================
+# 6. GET CHAPTER LIST
+# ========================================
+# Mendapatkan daftar semua chapter dari sebuah manga
+#
+# 📝 NOTE:
+# - Gunakan manga ID yang sama dari step sebelumnya
+# - Response akan berisi daftar chapter dengan chapter ID nya
+
+### Chapter List - Example (Demonic Emperor)
+# Ganti dengan manga ID yang valid
+GET http://localhost:3000/api/manga/c0f1d049-ff7f-474d-8c6a-3a55e4c44147/chapters
+
+###
+
+### Chapter List - Template (Replace {mangaId})
+# GANTI {mangaId} dengan ID yang valid
+# GET http://localhost:3000/api/manga/{mangaId}/chapters
+
+###
+
+# ========================================
+# 7. GET PAGE LIST
+# ========================================
+# Mendapatkan daftar gambar (pages) dari sebuah chapter
+#
+# 📝 NOTE:
+# - Copy chapter ID dari response Chapter List (field "url")
+# - Ganti {chapterId} dengan chapter ID yang valid
+# - Response akan berisi URL gambar untuk setiap halaman
+
+### Page List - Example (Chapter 786)
+# Ganti dengan chapter ID yang valid dari Chapter List
+GET http://localhost:3000/api/manga/chapter/a79a1578-aeaf-4ea6-b447-d78a96fc68fa/pages
+
+###
+
+### Page List - Template (Replace {chapterId})
+# GANTI {chapterId} dengan ID dari Chapter List response
+# GET http://localhost:3000/api/manga/chapter/{chapterId}/pages
+
+###
+
+# ========================================
+# 8. DOWNLOAD IMAGE
+# ========================================
+# Download gambar manga dengan proper headers
+#
+# 📝 NOTE:
+# - Copy image URL dari response Page List (field "imageUrl")
+# - Ganti {imageUrl} dengan URL gambar yang valid
+# - Gunakan encodeURIComponent() jika test via JavaScript
+
+### Download Image - Example
+# Ganti dengan image URL yang valid dari Page List
+GET http://localhost:3000/api/manga/image?url=https://delivery.shngm.id/chapter/manga_c0f1d049-ff7f-474d-8c6a-3a55e4c44147/chapter_a79a1578-aeaf-4ea6-b447-d78a96fc68fa/00-cdbf36.jpg
+
+###
+
+### Download Image - Template (Replace {imageUrl})
+# GANTI {imageUrl} dengan URL dari Page List response
+# GET http://localhost:3000/api/manga/image?url={imageUrl}
+
+###
+
+# ========================================
+# 9. COMPLETE WORKFLOW EXAMPLE
+# ========================================
+# Test lengkap dari awal sampai akhir
+#
+# Ikuti urutan ini:
+
+# Step 1: Get popular manga untuk mendapatkan manga ID
+### Workflow Step 1: Get Popular Manga
+GET http://localhost:3000/api/manga/popular?page=1
+
+###
+
+# Step 2: Pilih manga dari response, copy field "url" nya
+# Step 3: Get manga details menggunakan manga ID tersebut
+### Workflow Step 2: Get Manga Details
+# Ganti dengan manga ID dari step 1
+GET http://localhost:3000/api/manga/c0f1d049-ff7f-474d-8c6a-3a55e4c44147
+
+###
+
+# Step 4: Get chapter list untuk manga tersebut
+### Workflow Step 3: Get Chapter List
+# Gunakan manga ID yang sama
+GET http://localhost:3000/api/manga/c0f1d049-ff7f-474d-8c6a-3a55e4c44147/chapters
+
+###
+
+# Step 5: Pilih chapter dari response, copy field "url" nya
+# Step 6: Get page list menggunakan chapter ID tersebut
+### Workflow Step 4: Get Page List
+# Ganti dengan chapter ID dari step 4
+GET http://localhost:3000/api/manga/chapter/a79a1578-aeaf-4ea6-b447-d78a96fc68fa/pages
+
+###
+
+# Step 7: Pilih page dari response, copy field "imageUrl" nya
+# Step 8: Download image menggunakan image URL tersebut
+### Workflow Step 5: Download Image
+# Ganti dengan image URL dari step 6
+GET http://localhost:3000/api/manga/image?url=https://delivery.shngm.id/chapter/manga_c0f1d049-ff7f-474d-8c6a-3a55e4c44147/chapter_a79a1578-aeaf-4ea6-b447-d78a96fc68fa/00-cdbf36.jpg
+
+###
+
+# ========================================
+# 10. ERROR TESTING
+# ========================================
+# Test error handling
+
+### Error: Invalid Manga ID
+GET http://localhost:3000/api/manga/invalid-id-12345
+
+###
+
+### Error: Invalid Chapter ID
+GET http://localhost:3000/api/manga/chapter/invalid-chapter-id/pages
+
+###
+
+### Error: Missing Search Query
+GET http://localhost:3000/api/manga/search?page=1
+
+###
+
+### Error: Invalid Route
+GET http://localhost:3000/api/invalid-endpoint
+
+###
+
+# ========================================
+# 11. PAGINATION TESTING
+# ========================================
+# Test pagination untuk berbagai endpoint
+
+### Popular Manga - Page 1
+GET http://localhost:3000/api/manga/popular?page=1
+
+###
+
+### Popular Manga - Page 5
+GET http://localhost:3000/api/manga/popular?page=5
+
+###
+
+### Latest Updates - Page 3
+GET http://localhost:3000/api/manga/latest?page=3
+
+###
+
+### Search Results - Page 2
+GET http://localhost:3000/api/manga/search?q=naruto&page=2
+
+###
+
+# ========================================
+# 📝 TIPS:
+# ========================================
+# 
+# ✅ DO:
+# - Selalu test Health Check dulu
+# - Gunakan ID yang valid dari Popular/Search
+# - Follow workflow dari atas ke bawah
+# - Simpan response untuk reference
+#
+# ❌ DON'T:
+# - Jangan gunakan ID dummy/example
+# - Jangan skip step (harus berurutan)
+# - Jangan lupa ganti {variabel} dengan nilai real
+#
+# 🔍 DEBUG:
+# - Lihat server logs untuk error details
+# - Check response status code
+# - Verify ID format (UUID v4)
+#
+# ========================================
+
