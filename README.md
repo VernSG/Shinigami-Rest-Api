@@ -64,12 +64,6 @@ src/
 └── config/         # Configuration
 ```
 
-Clean Architecture = Mudah maintenance! 🎯
-
 ## 🛠️ Tech Stack
 
 Node.js • Express.js • TypeScript • Axios
-
-## 📄 License
-
-MIT

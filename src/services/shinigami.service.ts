@@ -77,7 +77,7 @@ export class ShinigamiService {
 
       const mangas: Manga[] = response.data.data.map((item: any) => ({
         title: item.title || "Unknown",
-        thumbnail: item.thumbnail || "",
+        thumbnail: item.cover_image_url || item.cover_portrait_url || "",
         url: item.manga_id || "",
         mangaUrl: `${this.baseUrl}/series/${item.manga_id}`,
       }));
@@ -115,7 +115,7 @@ export class ShinigamiService {
 
       const mangas: Manga[] = response.data.data.map((item: any) => ({
         title: item.title || "Unknown",
-        thumbnail: item.thumbnail || "",
+        thumbnail: item.cover_image_url || item.cover_portrait_url || "",
         url: item.manga_id || "",
         mangaUrl: `${this.baseUrl}/series/${item.manga_id}`,
       }));
@@ -161,7 +161,7 @@ export class ShinigamiService {
 
       const mangas: Manga[] = response.data.data.map((item: any) => ({
         title: item.title || "Unknown",
-        thumbnail: item.thumbnail || "",
+        thumbnail: item.cover_image_url || item.cover_portrait_url || "",
         url: item.manga_id || "",
         mangaUrl: `${this.baseUrl}/series/${item.manga_id}`,
       }));
@@ -213,7 +213,7 @@ export class ShinigamiService {
         status: this.toStatus(data.status),
         description: data.description || "",
         genre: tags || "",
-        thumbnail: data.thumbnail || "",
+        thumbnail: data.cover_image_url || data.cover_portrait_url || "",
       };
     } catch (error: any) {
       if (error.response) {
