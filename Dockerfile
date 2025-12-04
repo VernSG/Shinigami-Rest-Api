@@ -15,6 +15,8 @@ RUN npm run build
 # Stage 2: Production Run
 FROM node:20-alpine
 
+LABEL org.opencontainers.image.source=https://github.com/vernsg/shinigami-api
+
 WORKDIR /app
 
 COPY package*.json ./
